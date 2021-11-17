@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>WPM</title>
+</head>
+<body>
+    <div class="container">
+        <div class="racetrack">
+            <img src="assets/car.png" alt="Car" class="car" width="120" height="120">
+            <img src="assets/finish.png" alt="Finish Line" class="finish" width="120" height="120">
+        </div>
+        <div class="form">
+            <p class="prompt">See you later space cowboy or something like that I don't know</p>
+            <textarea id="userInput" class="userInput" rows="4" cols="30" oninput="moveCar()" disabled=""></textarea>
+        </div>
+        <div>
+            <button class="start" onclick="startTimer()">Start</button>
+        </div>
+        <div class="stats flex">
+            <div class="timer flex">
+                <h2>Time:</h2>&nbsp
+                <h2 id="time">0</h2>
+            </div>
+            <div class="accuracy flex">
+                <h2>Accuracy:</h2>&nbsp
+                <h2 id="acc">0</h2>
+            </div>
+            <div class="word-per flex">
+                <h2>WPM:</h2>&nbsp
+                <h2 id="wpm">0</h2>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script rel="text/javascript" src="script.js"></script>
+</html>
