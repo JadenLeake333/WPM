@@ -18,9 +18,11 @@
     font-size: 2rem;
 }
 .prompt {
+    width: 75%;
     font-size: 2rem;
     margin: 0 auto;
     user-select: none;
+    text-align: center;
 }
 
 .stats {

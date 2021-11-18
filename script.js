@@ -22,6 +22,8 @@ var charsTyped = 0
 
 var finishPosition = finish.x
 
+userInput.setAttribute("disabled","")
+
 async function getQuote() {
     let quote = await fetch("https://api.quotable.io/random")
     let quoteContent = await quote.json()
@@ -33,12 +35,18 @@ async function getQuote() {
 
 getQuote()
 
+const addColor = (string,idx,color) => {
+    str = string.split("")
+    str[idx] = `<span style="color: ${color};">${str[idx]}</span>`
+    str = str.join("")
+    return str
+}
+
 const moveCar = () =>{
     var userText = userInput.value
 
     if (userText[letterIndex] === prompt[letterIndex] && userText === prompt.substring(0,userText.length)) {
-        prompt[letterIndex].color = "red"
-
+        document.getElementsByClassName("prompt")[0].innerHTML = addColor(prompt,letterIndex,"green")
         var left = parseInt(car.style.left);
         car.style.position = "relative"
         car.style.left = (left+interval)+"px"
@@ -47,9 +55,11 @@ const moveCar = () =>{
         
     }else{
         misses++
+        document.getElementsByClassName("prompt")[0].innerHTML = addColor(prompt,letterIndex,"red")
     }
 
     let minutes = seconds / 60
+
     if (userText === prompt) {
         alert("Your WPM was " +  Math.round(((charsTyped / 5) / minutes)))
         window.location.href = window.location
