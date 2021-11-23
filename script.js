@@ -1,7 +1,9 @@
 const car = document.getElementsByClassName("car")[0]
 const finish = document.getElementsByClassName("finish")[0]
+const reset = document.getElementsByClassName("restart")[0]
 var prompt = document.getElementsByClassName("prompt")[0].innerHTML
 var start = document.getElementsByClassName("start")[0]
+var gameOver = false
 // Clear any inputs
 document.getElementById("userInput").value = ""
 
@@ -61,8 +63,12 @@ const moveCar = () =>{
     let minutes = seconds / 60
 
     if (userText === prompt) {
-        alert("Your WPM was " +  Math.round(((charsTyped / 5) / minutes)))
-        window.location.href = window.location
+        let wpm = Math.round(((charsTyped / 5) / minutes))
+        let acc = Math.round(Math.abs((misses-prompt.length)/prompt.length * 100))
+        gameOver = true
+        openModal(wpm,acc)
+        // alert("Your WPM was " +  Math.round(((charsTyped / 5) / minutes)))
+        // window.location.href = window.location
     }
     accuracy.innerHTML = Math.round(Math.abs((misses-prompt.length)/prompt.length * 100))
     wpm.innerHTML = Math.round(((charsTyped / 5) / minutes))
@@ -71,12 +77,27 @@ const moveCar = () =>{
 function startTimer(){
     let minutes = seconds / 60
     timex = setTimeout(function(){
-        seconds++
-        userInput.removeAttribute("disabled")
-        userInput.focus()
-        start.setAttribute("disabled","")
-        document.getElementById("time").innerHTML = seconds
-        wpm.innerHTML = Math.round(((charsTyped / 5) / minutes))
-        startTimer()
+        if (!gameOver){
+            seconds++
+            userInput.removeAttribute("disabled")
+            userInput.focus()
+            start.setAttribute("disabled","")
+            document.getElementById("time").innerHTML = seconds
+            wpm.innerHTML = Math.round(((charsTyped / 5) / minutes))
+            startTimer()
+        }
     },1000)
+}
+
+function openModal(wpm, accuracy) {
+    var modal = document.getElementById("myModal");
+    var modalContent = document.getElementById("modal-content-p");
+
+    // Get the button that opens the modal
+    modalContent.innerHTML = `Your WPM is: ${wpm} WPM <br>Your accuracy is: ${accuracy}%`
+    modal.style.display = "block";
+}
+
+reset.onclick = function(){
+    window.location.href = window.location
 }
